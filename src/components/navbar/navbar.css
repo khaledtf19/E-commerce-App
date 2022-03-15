@@ -1,0 +1,47 @@
+.nav__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: white;
+  padding: 1rem 7rem;
+  z-index: 99999;
+}
+
+.nav__list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  min-width: 250px;
+}
+
+.nav__list-item {
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.nav__list__item-link {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.nav__second__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-width: 250px;
+}
+.nav__second__cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__second__currency {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

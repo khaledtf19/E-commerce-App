@@ -1,0 +1,12 @@
+.currencyBG {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(57, 55, 72, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}

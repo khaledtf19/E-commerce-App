@@ -1,0 +1,119 @@
+.cart__product__container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 1px solid var(--colo-border3);
+}
+
+.cart__product__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.cart__product__info__name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cart__product__info__name p {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.cart__product__info__name__brand {
+  font-weight: 600;
+}
+
+.cart__product__info__name__name {
+  font-weight: 400;
+}
+
+.cart__product__info__price {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.cart__product__info__attributes__container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cart__product__info__attributes__attribute {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--colo-border);
+  width: 60px;
+  height: 60px;
+}
+
+.cart__product__info__attributes__attribute p {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.cart__product__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  min-height: 185px;
+  max-width: 45px;
+}
+.cart__product__buttons_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+}
+
+.cart__product__image {
+  width: 100%;
+  width: 141px;
+  height: 185px;
+  position: relative;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.cart__product__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart__product__image__selector__right {
+  position: absolute;
+  right: 0px;
+  top: 40%;
+  cursor: pointer;
+  padding: 10px;
+}
+.cart__product__image__selector__left {
+  position: absolute;
+  left: 0px;
+  top: 40%;
+  cursor: pointer;
+  padding: 10px;
+}

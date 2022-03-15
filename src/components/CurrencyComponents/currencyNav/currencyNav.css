@@ -1,0 +1,13 @@
+.currencyNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.currencyNav:hover {
+  background-color: var(--color-hover);
+}
