@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import BackDrop from "../../backDrop/BackDrop";
-import CartCardsContainer from "../cartCardsContianer/CartCardsContainer";
+import CartCardsContainer from "../cartCardsContainer/CartCardsContainer";
+import CartTotalPrice from "../cartTotalPrice/CartTotalPrice";
 
 import { CartContext } from "../../../context/cartData/CartContext";
 
@@ -13,7 +14,7 @@ export default class CartPopup extends Component {
   static contextType = CartContext;
 
   render() {
-    const { openCart, setOpenCart } = this.context;
+    const { openCart, setOpenCart, selectedProducts } = this.context;
 
     return (
       <>
@@ -28,6 +29,9 @@ export default class CartPopup extends Component {
               onClick={(e) => e.stopPropagation()}
             >
               <CartCardsContainer />
+              <div className="cartPopup__totalPrice">
+                <CartTotalPrice selectedProducts={selectedProducts} />
+              </div>
               <div className="cartPopup__buttons">
                 <div className="cartPopup__buttons__button__container">
                   <Link

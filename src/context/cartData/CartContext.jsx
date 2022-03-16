@@ -13,49 +13,6 @@ export default class CartProvider extends Component {
       totalPrice: [],
     };
   }
-
-  componentDidMount() {
-    this.setState({
-      totalPrice: [
-        {
-          currency: {
-            label: "USD",
-            symbol: "$",
-          },
-          amount: 0,
-        },
-        {
-          currency: {
-            label: "GBP",
-            symbol: "£",
-          },
-          amount: 0,
-        },
-        {
-          currency: {
-            label: "AUD",
-            symbol: "A$",
-          },
-          amount: 0,
-        },
-        {
-          currency: {
-            label: "JPY",
-            symbol: "¥",
-          },
-          amount: 0,
-        },
-        {
-          currency: {
-            label: "RUB",
-            symbol: "₽",
-          },
-          amount: 0,
-        },
-      ],
-    });
-  }
-
   static contextType = CurrencyContext;
 
   render() {
@@ -63,13 +20,28 @@ export default class CartProvider extends Component {
       this.setState({ openCart: value });
     };
 
+    const countTotal = (products) => {
+      let tmp = products;
+
+      tmp = tmp.map((product) => {
+        let productAmount = product.amount;
+        let newPrices = product.prices.map((price) => {
+          let totalAmount = price.amount * productAmount;
+          return { ...price, totalAmount: totalAmount };
+        });
+        return { ...product, prices: newPrices };
+      });
+
+      this.setState({ selectedProducts: tmp });
+      return tmp;
+    };
+
     const updateLocal = (update) => {
       localStorage.setItem("selected_Products", JSON.stringify(update));
     };
 
     const setSelectedProducts = (value) => {
-      this.setState({ selectedProducts: value });
-      updateLocal(value);
+      updateLocal(countTotal(value));
     };
 
     const addProduct = (newProduct) => {
@@ -115,8 +87,6 @@ export default class CartProvider extends Component {
     };
 
     const incrementAmount = (productId) => {
-      console.log(productId);
-
       let tmp = this.state.selectedProducts;
       let productIndex = null;
 

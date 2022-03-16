@@ -14,8 +14,6 @@ export default class CartCardsContainer extends Component {
 
   static contextType = CartContext;
 
-  componentDidMount() {}
-
   render() {
     const { selectedProducts } = this.context;
 

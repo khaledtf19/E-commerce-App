@@ -61,6 +61,10 @@ export default class CartCard extends Component {
     getData();
   }
 
+  componentDidUpdate() {
+    console.log(this.props.product);
+  }
+
   render() {
     const { productData, product } = this.state;
     const { selectedCurrency } = this.context;
@@ -69,9 +73,6 @@ export default class CartCard extends Component {
       <>
         {this.state.finished && (
           <div className="cart__card__container">
-            {console.log(productData)}
-
-            {console.log(product)}
             <div className="cart__card__info">
               <div className="cart__card__info__name">
                 <p className="cart__card__info__name__brand">
@@ -114,7 +115,7 @@ export default class CartCard extends Component {
                 <IncrementCart ProductId={productData.id} />
               </div>
               <div className="cart__card__buttons__amount">
-                <p>{product.amount}</p>
+                <p>{this.props.product.amount}</p>
               </div>
               <div className="cart__card__buttons_button">
                 <DecrementCart ProductId={productData.id} />

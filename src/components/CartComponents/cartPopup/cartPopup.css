@@ -52,3 +52,8 @@
   background-color: var(--color-hover2);
   color: white;
 }
+
+.cartPopup__totalPrice {
+  width: 100%;
+  padding: 0 20px;
+}

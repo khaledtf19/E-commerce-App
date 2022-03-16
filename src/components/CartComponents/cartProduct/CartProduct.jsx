@@ -147,7 +147,7 @@ export default class CartProduct extends Component {
                 <IncrementCart ProductId={productData.id} />
               </div>
               <div className="cart__product__buttons__amount">
-                <p>{product.amount}</p>
+                <p>{this.props.product.amount}</p>
               </div>
               <div className="cart__product__buttons_button">
                 <DecrementCart ProductId={productData.id} />
