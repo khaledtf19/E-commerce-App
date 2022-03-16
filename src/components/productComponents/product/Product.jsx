@@ -33,6 +33,7 @@ export default class Product extends Component {
       let sProduct = {};
       sProduct.attributes = this.state.selectedAttributes;
       sProduct.id = productId;
+      sProduct.prices = product.prices;
       this.setState({ selectedProduct: sProduct });
       console.log(sProduct);
     };

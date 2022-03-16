@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { LocationContext } from "../../context/locationData/LocationData";
+
 import CardsContainer from "../../components/CardsComponents/cardsContainer/CardsContainer";
 
 const getTechData = `{
@@ -12,6 +14,16 @@ const getTechData = `{
       category
       gallery
       inStock
+      attributes{
+        id
+        name
+        type
+        items{
+          displayValue
+          value
+          id
+        }
+      }
       prices{
         currency{
           label
@@ -26,8 +38,14 @@ const getTechData = `{
 export default class Tech extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [], finished: false };
+    this.state = {
+      products: [],
+      finished: false,
+      pageLocation: window.location.pathname,
+    };
   }
+
+  static contextType = LocationContext;
 
   componentDidMount() {
     const getData = async () => {
@@ -47,6 +65,8 @@ export default class Tech extends Component {
         });
     };
     getData();
+
+    this.context.setLocation(this.state.pageLocation);
   }
 
   render() {

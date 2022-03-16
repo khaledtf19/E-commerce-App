@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { LocationContext } from "../../context/locationData/LocationData";
 
 import CardsContainer from "../../components/CardsComponents/cardsContainer/CardsContainer";
 
@@ -12,6 +13,16 @@ const getAllData = `{
       category
       gallery
       inStock
+      attributes{
+        id
+        name
+        type
+        items{
+          displayValue
+          value
+          id
+        }
+      }
       prices{
         currency{
           label
@@ -26,8 +37,14 @@ const getAllData = `{
 export default class All extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [], finished: false };
+    this.state = {
+      products: [],
+      finished: false,
+      pageLocation: window.location.pathname,
+    };
   }
+
+  static contextType = LocationContext;
 
   componentDidMount() {
     const getData = async () => {
@@ -47,6 +64,8 @@ export default class All extends Component {
         });
     };
     getData();
+
+    this.context.setLocation(this.state.pageLocation);
   }
 
   render() {

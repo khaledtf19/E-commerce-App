@@ -14,16 +14,7 @@ export default class ProductAttribute extends Component {
   }
 
   componentDidMount() {
-    const makeDefault = () => {
-      // let tmp = this.state.selectedAttributes;
-      // let attributeId = this.state.attribute.id;
-      // let fistItemId = this.state.attribute.items[0].id;
-      // let firstItemValue = this.state.attribute.items[0].value;
-
-      // tmp[attributeId] = [fistItemId, firstItemValue];
-
-      // this.props.setSelectedAttributes(tmp);
-
+    const makeDefaultAttributes = () => {
       let tmp = this.state.selectedAttributes;
       let attributeId = this.state.attribute.id;
       let fistItem = this.state.attribute.items[0];
@@ -35,7 +26,7 @@ export default class ProductAttribute extends Component {
       this.setState({ finished: true });
     };
 
-    makeDefault();
+    makeDefaultAttributes();
   }
 
   render() {

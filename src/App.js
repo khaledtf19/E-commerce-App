@@ -14,6 +14,7 @@ import CurrencyPopup from "./components/CurrencyComponents/currncyPopup/Currency
 
 import CartProvider from "./context/cartData/CartContext";
 import CurrencyProvider from "./context/currencyData/CurrencyContext";
+import LocationProvider from "./context/locationData/LocationData";
 
 import "./App.css";
 
@@ -21,24 +22,26 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <CartProvider>
+        <LocationProvider>
           <CurrencyProvider>
-            <Navbar />
-            <main>
-              <CartPopup />
-              <CurrencyPopup />
-              <Layout>
-                <Routes>
-                  <Route path="/" element={<All />} />
-                  <Route path="/tech" element={<Tech />} />
-                  <Route path="/clothes" element={<Clothes />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/product/:id" element={<ProductPage />} />
-                </Routes>
-              </Layout>
-            </main>
+            <CartProvider>
+              <Navbar />
+              <main>
+                <CartPopup />
+                <CurrencyPopup />
+                <Layout>
+                  <Routes>
+                    <Route path="/" element={<All />} />
+                    <Route path="/tech" element={<Tech />} />
+                    <Route path="/clothes" element={<Clothes />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/product/:id" element={<ProductPage />} />
+                  </Routes>
+                </Layout>
+              </main>
+            </CartProvider>
           </CurrencyProvider>
-        </CartProvider>
+        </LocationProvider>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component, createContext } from "react";
+import { CurrencyContext } from "../currencyData/CurrencyContext";
 
 export const CartContext = createContext();
 
@@ -9,8 +10,53 @@ export default class CartProvider extends Component {
       openCart: false,
       selectedProducts:
         JSON.parse(localStorage.getItem("selected_Products")) || [],
+      totalPrice: [],
     };
   }
+
+  componentDidMount() {
+    this.setState({
+      totalPrice: [
+        {
+          currency: {
+            label: "USD",
+            symbol: "$",
+          },
+          amount: 0,
+        },
+        {
+          currency: {
+            label: "GBP",
+            symbol: "£",
+          },
+          amount: 0,
+        },
+        {
+          currency: {
+            label: "AUD",
+            symbol: "A$",
+          },
+          amount: 0,
+        },
+        {
+          currency: {
+            label: "JPY",
+            symbol: "¥",
+          },
+          amount: 0,
+        },
+        {
+          currency: {
+            label: "RUB",
+            symbol: "₽",
+          },
+          amount: 0,
+        },
+      ],
+    });
+  }
+
+  static contextType = CurrencyContext;
 
   render() {
     const setOpenCart = (value) => {

@@ -34,3 +34,11 @@
 
   background-color: var(--color-hover2);
 }
+
+.GreenCart {
+  width: 100%;
+  cursor: pointer;
+}
+.GreenCart:hover {
+  opacity: 0.8;
+}

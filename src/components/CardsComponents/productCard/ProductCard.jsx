@@ -3,13 +3,19 @@ import { Link } from "react-router-dom";
 
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 
-import cart_green from "../../../assets/cart_green.svg";
+import { GreenCart } from "../../CartComponents/cartButtons/CartButtons";
+
 import "./productCard.css";
 
 export default class ProductCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { product: props.product, imageCount: 0, cardHover: false };
+    this.state = {
+      product: props.product,
+      imageCount: 0,
+      cardHover: false,
+      selectedAttributes: {},
+    };
   }
 
   static contextType = CurrencyContext;
@@ -34,12 +40,30 @@ export default class ProductCard extends Component {
   }
 
   render() {
-    const { product } = this.state;
+    const { product, selectedAttributes } = this.state;
     const { selectedCurrency } = this.context;
+
+    const makeDefaultAttributes = () => {
+      let tmp = [];
+      let productId = this.state.product.id;
+
+      let attributes = this.state.product.attributes;
+
+      attributes.map((attribute) =>
+        tmp.push({ id: attribute.id, selectedItem: attribute.items[0] })
+      );
+
+      let tmp2 = { id: productId, attributes: tmp, prices: product.prices };
+      this.setState({ selectedAttributes: tmp2 });
+    };
+
     return (
       <div
         className="card__container"
-        onMouseEnter={() => this.setState({ cardHover: true })}
+        onMouseEnter={() => {
+          this.setState({ cardHover: true });
+          makeDefaultAttributes();
+        }}
         onMouseLeave={() => this.setState({ cardHover: false })}
       >
         <Link
@@ -72,7 +96,7 @@ export default class ProductCard extends Component {
         </Link>
         {this.state.cardHover && product.inStock ? (
           <div className="card__cart">
-            <img src={cart_green} alt="green cart icon" />
+            <GreenCart product={selectedAttributes} />
           </div>
         ) : (
           ""
