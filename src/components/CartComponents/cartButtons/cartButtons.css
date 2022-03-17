@@ -18,6 +18,10 @@
   opacity: 0.8;
 }
 
+.cart__button__outOfStock {
+  background-color: var(--colo-border2);
+}
+
 .cart__button__small {
   display: flex;
   align-items: center;

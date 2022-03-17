@@ -7,7 +7,6 @@ export default class CartTotalPrice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedProducts: props.selectedProducts,
       totalPrice: 0,
     };
   }
@@ -15,7 +14,7 @@ export default class CartTotalPrice extends Component {
   static contextType = CurrencyContext;
   makeTotalPrice = () => {
     let totalPriceTmb = 0;
-    this.state.selectedProducts.forEach((product) => {
+    this.props.selectedProducts.forEach((product) => {
       product.prices.map((price) =>
         price.currency.symbol === this.context.selectedCurrency.symbol
           ? (totalPriceTmb += price.totalAmount)
@@ -29,8 +28,10 @@ export default class CartTotalPrice extends Component {
     this.makeTotalPrice();
   }
 
-  componentDidUpdate() {
-    // this.makeTotalPrice();
+  componentDidUpdate(prevProps) {
+    if (prevProps.selectedProducts !== this.props.selectedProducts) {
+      this.makeTotalPrice();
+    }
   }
 
   render() {

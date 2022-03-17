@@ -9,7 +9,10 @@ import "./cartButtons.css";
 export class AddToCart extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedProduct: props.selectedProduct };
+    this.state = {
+      selectedProduct: props.selectedProduct,
+      inStock: props.inStock,
+    };
   }
 
   static contextType = CartContext;
@@ -24,9 +27,17 @@ export class AddToCart extends Component {
     };
 
     return (
-      <button onClick={handleAddProduct} className="cart__button">
-        Add To Cart
-      </button>
+      <>
+        {this.state.inStock ? (
+          <button onClick={handleAddProduct} className="cart__button">
+            Add To Cart
+          </button>
+        ) : (
+          <button className="cart__button cart__button__outOfStock">
+            Out Of Stock
+          </button>
+        )}
+      </>
     );
   }
 }

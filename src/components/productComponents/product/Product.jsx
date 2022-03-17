@@ -89,7 +89,10 @@ export default class Product extends Component {
             className="product__info__cartButton"
             onMouseEnter={() => handleSelectProduct()}
           >
-            <AddToCart selectedProduct={this.state.selectedProduct} />
+            <AddToCart
+              selectedProduct={this.state.selectedProduct}
+              inStock={product.inStock}
+            />
           </div>
           <div
             className="product__info__description"
