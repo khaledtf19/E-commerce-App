@@ -59,8 +59,7 @@ export default class CartProduct extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          this.setState({ productData: data.data.product });
-          this.setState({ finished: true });
+          this.setState({ productData: data.data.product, finished: true });
         });
     };
     getData();
@@ -102,9 +101,6 @@ export default class CartProduct extends Component {
       <>
         {this.state.finished && (
           <div className="cart__product__container">
-            {console.log(productData)}
-
-            {console.log(product)}
             <div className="cart__product__info">
               <div className="cart__product__info__name">
                 <h2 className="cart__product__info__name__brand">
@@ -124,22 +120,23 @@ export default class CartProduct extends Component {
                 </p>
               </div>
               <div className="cart__product__info__attributes__container">
-                {product.attributes.map((attribute) =>
-                  attribute.id.toLowerCase() === "color" ? (
-                    <div
-                      key={attribute.id}
-                      className="cart__product__info__attributes__attribute"
-                      style={{ background: attribute.selectedItem.value }}
-                    ></div>
-                  ) : (
-                    <div
-                      key={attribute.id}
-                      className="cart__product__info__attributes__attribute"
-                    >
+                {product.attributes.map((attribute) => (
+                  <div
+                    key={attribute.selectedItem.id}
+                    className="cart__product__info__attributes__attribute"
+                    style={
+                      attribute.id.toLowerCase() === "color"
+                        ? { background: attribute.selectedItem.value }
+                        : {}
+                    }
+                  >
+                    {attribute.id.toLowerCase() !== "color" ? (
                       <p>{attribute.selectedItem.value}</p>
-                    </div>
-                  )
-                )}
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
             <div className="cart__product__buttons">

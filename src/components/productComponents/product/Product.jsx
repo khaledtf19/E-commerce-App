@@ -14,7 +14,6 @@ export default class Product extends Component {
       product: props.product,
       selectedImage: 0,
       selectedAttributes: [],
-      selectedProduct: {},
     };
   }
 
@@ -26,16 +25,6 @@ export default class Product extends Component {
 
     const setSelectedAttributes = (value) => {
       this.setState({ selectedAttributes: value });
-    };
-
-    const handleSelectProduct = () => {
-      let productId = product.id;
-      let sProduct = {};
-      sProduct.attributes = this.state.selectedAttributes;
-      sProduct.id = productId;
-      sProduct.prices = product.prices;
-      this.setState({ selectedProduct: sProduct });
-      console.log(sProduct);
     };
 
     return (
@@ -85,13 +74,11 @@ export default class Product extends Component {
               )}
             </h3>
           </div>
-          <div
-            className="product__info__cartButton"
-            onMouseEnter={() => handleSelectProduct()}
-          >
+          <div className="product__info__cartButton">
             <AddToCart
-              selectedProduct={this.state.selectedProduct}
               inStock={product.inStock}
+              selectedAttributes={this.state.selectedAttributes}
+              product={product}
             />
           </div>
           <div

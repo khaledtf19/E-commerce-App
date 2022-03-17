@@ -24,14 +24,13 @@ export default class CurrencyNav extends Component {
           className="currencyNav"
           onClick={() => setOpenCurrency(!openCurrency)}
         >
+          {selectedCurrency.symbol}
           {openCurrency ? (
             <>
-              {selectedCurrency.symbol}
               <img src={dropdown_up} alt="dropdown" />
             </>
           ) : (
             <>
-              {selectedCurrency.symbol}{" "}
               <img src={dropdown_down} alt="dropdown" />
             </>
           )}

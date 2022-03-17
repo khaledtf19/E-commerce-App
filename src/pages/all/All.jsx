@@ -59,8 +59,10 @@ export default class All extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          this.setState({ products: data.data.category.products });
-          this.setState({ finished: true });
+          this.setState({
+            products: data.data.category.products,
+            finished: true,
+          });
         });
     };
     getData();

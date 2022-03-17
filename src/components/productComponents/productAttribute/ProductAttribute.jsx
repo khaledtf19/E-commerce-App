@@ -52,34 +52,31 @@ export default class ProductAttribute extends Component {
               <h3>{attribute.name}:</h3>
             </div>
             <div className="attribute__items">
-              {attribute.id.toLowerCase() === "color"
-                ? attribute.items.map((item) => (
-                    <div
-                      onClick={() => selectItem(attribute.id, item)}
-                      key={item.id}
-                      className={`attribute__item ${
-                        selectedItem.id?.toLowerCase() ===
-                        item.id?.toLowerCase()
-                          ? "attribute__item__selected"
-                          : ""
-                      }`}
-                      style={{ background: item.value }}
-                    ></div>
-                  ))
-                : attribute.items.map((item) => (
-                    <div
-                      onClick={() => selectItem(attribute.id, item)}
-                      className={`attribute__item ${
-                        selectedItem.id?.toLowerCase() ===
-                        item.id?.toLowerCase()
-                          ? "attribute__item__selected"
-                          : ""
-                      }`}
-                      key={item.id}
-                    >
-                      <p>{item.value}</p>
-                    </div>
-                  ))}
+              {attribute.items.map((item) => (
+                <div
+                  onClick={() => selectItem(attribute.id, item)}
+                  key={item.id}
+                  className={`attribute__item ${
+                    selectedItem.id?.toLowerCase() === item.id?.toLowerCase()
+                      ? "attribute__item__selected"
+                      : ""
+                  }`}
+                  style={
+                    attribute.id.toLowerCase() === "color"
+                      ? { background: item.value }
+                      : {}
+                  }
+                >
+                  {attribute.id.toLowerCase() !== "color" ? (
+                    <p>
+                      {item.value}
+                      {console.log(item)}
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}

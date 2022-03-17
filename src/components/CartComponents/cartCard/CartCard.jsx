@@ -3,13 +3,19 @@ import React, { Component } from "react";
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 
 import { DecrementCart, IncrementCart } from "../cartButtons/CartButtons";
+import CartCardLoading from "./CartCardLoading";
 
 import "./cartCard.css";
 
 export default class CartCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { productData: {}, product: props.product, finished: false };
+    this.state = {
+      productData: {},
+      product: props.product,
+      finished: false,
+      loading: false,
+    };
   }
 
   static contextType = CurrencyContext;
@@ -43,6 +49,7 @@ export default class CartCard extends Component {
     }}`;
 
     const getData = async () => {
+      this.setState({ loading: true });
       fetch("http://localhost:4000", {
         method: "POST",
         headers: {
@@ -56,75 +63,77 @@ export default class CartCard extends Component {
         .then((data) => {
           this.setState({ productData: data.data.product });
           this.setState({ finished: true });
+          this.setState({ loading: false });
         });
     };
     getData();
   }
 
-  componentDidUpdate() {
-    console.log(this.props.product);
-  }
-
   render() {
-    const { productData, product } = this.state;
+    const { productData, product, loading } = this.state;
     const { selectedCurrency } = this.context;
 
     return (
       <>
-        {this.state.finished && (
-          <div className="cart__card__container">
-            <div className="cart__card__info">
-              <div className="cart__card__info__name">
-                <p className="cart__card__info__name__brand">
-                  {productData.brand}
-                </p>
-                <p className="cart__card__info__name__name">
-                  {productData.name}
-                </p>
-              </div>
-              <div className="cart__card__info__price">
-                <p>
-                  {productData.prices.map((el) =>
-                    el.currency.label === selectedCurrency.label
-                      ? `${el.currency.symbol}${el.amount}`
-                      : ""
-                  )}
-                </p>
-              </div>
-              <div className="cart__card__info__attributes__container">
-                {product.attributes.map((attribute) =>
-                  attribute.id.toLowerCase() === "color" ? (
+        {loading ? (
+          <CartCardLoading />
+        ) : (
+          this.state.finished && (
+            <div className="cart__card__container">
+              <div className="cart__card__info">
+                <div className="cart__card__info__name">
+                  <p className="cart__card__info__name__brand">
+                    {productData.brand}
+                  </p>
+                  <p className="cart__card__info__name__name">
+                    {productData.name}
+                  </p>
+                </div>
+                <div className="cart__card__info__price">
+                  <p>
+                    {productData.prices.map((el) =>
+                      el.currency.label === selectedCurrency.label
+                        ? `${el.currency.symbol}${el.amount}`
+                        : ""
+                    )}
+                  </p>
+                </div>
+                <div className="cart__card__info__attributes__container">
+                  {product.attributes.map((attribute) => (
                     <div
-                      key={attribute.id}
+                      key={attribute.selectedItem.id}
                       className="cart__card__info__attributes__attribute"
-                      style={{ background: attribute.selectedItem.value }}
-                    ></div>
-                  ) : (
-                    <div
-                      key={attribute.id}
-                      className="cart__card__info__attributes__attribute"
+                      style={
+                        attribute.id.toLowerCase() === "color"
+                          ? { background: attribute.selectedItem.value }
+                          : {}
+                      }
                     >
-                      <p>{attribute.selectedItem.value}</p>
+                      {attribute.id.toLowerCase() !== "color" ? (
+                        <p>{attribute.selectedItem.value}</p>
+                      ) : (
+                        ""
+                      )}
                     </div>
-                  )
-                )}
+                  ))}
+                </div>
+              </div>
+              <div className="cart__card__buttons">
+                <div className="cart__card__buttons_button">
+                  <IncrementCart ProductId={productData.id} />
+                </div>
+                <div className="cart__card__buttons__amount">
+                  <p>{this.props.product.amount}</p>
+                </div>
+                <div className="cart__card__buttons_button">
+                  <DecrementCart ProductId={productData.id} />
+                </div>
+              </div>
+              <div className="cart__Card__image">
+                <img src={productData.gallery[0]} alt={product.id} />
               </div>
             </div>
-            <div className="cart__card__buttons">
-              <div className="cart__card__buttons_button">
-                <IncrementCart ProductId={productData.id} />
-              </div>
-              <div className="cart__card__buttons__amount">
-                <p>{this.props.product.amount}</p>
-              </div>
-              <div className="cart__card__buttons_button">
-                <DecrementCart ProductId={productData.id} />
-              </div>
-            </div>
-            <div className="cart__Card__image">
-              <img src={productData.gallery[0]} alt={product.id} />
-            </div>
-          </div>
+          )
         )}
       </>
     );

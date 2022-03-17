@@ -58,8 +58,7 @@ export default class ProductPage extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          this.setState({ product: data.data.product });
-          this.setState({ finished: true });
+          this.setState({ product: data.data.product, finished: true });
         });
     };
     getData();

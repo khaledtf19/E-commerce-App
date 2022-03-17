@@ -10,7 +10,6 @@ export class AddToCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedProduct: props.selectedProduct,
       inStock: props.inStock,
     };
   }
@@ -20,16 +19,19 @@ export class AddToCart extends Component {
   render() {
     const { addProduct } = this.context;
 
-    const handleAddProduct = () => {
-      if (Object.keys(this.props.selectedProduct).length > 0) {
-        addProduct(this.props.selectedProduct);
-      }
+    const handleSelectProduct = () => {
+      let productId = this.props.product.id;
+      let sProduct = {};
+      sProduct.attributes = this.props.selectedAttributes;
+      sProduct.id = productId;
+      sProduct.prices = this.props.product.prices;
+      addProduct(sProduct);
     };
 
     return (
       <>
         {this.state.inStock ? (
-          <button onClick={handleAddProduct} className="cart__button">
+          <button onClick={handleSelectProduct} className="cart__button">
             Add To Cart
           </button>
         ) : (
