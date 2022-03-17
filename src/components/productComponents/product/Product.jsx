@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 
-import ProductAttribute from "../productAttribute/ProductAttribute";
+import { ProductAttribute } from "../";
 import { AddToCart } from "../../CartComponents/cartButtons/CartButtons";
 
 import "./product.css";

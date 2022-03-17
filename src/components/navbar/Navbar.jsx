@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import { LocationContext } from "../../context/locationData/LocationData";
 
-import CartNav from "../CartComponents/cartNav/CartNav";
-import CurrencyNav from "../CurrencyComponents/currencyNav/CurrencyNav";
+import { CartNav } from "../CartComponents";
+import { CurrencyNav } from "../CurrencyComponents";
 
 import logo from "../../assets/logo.svg";
 

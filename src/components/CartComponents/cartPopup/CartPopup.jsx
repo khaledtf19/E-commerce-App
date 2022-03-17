@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import BackDrop from "../../backDrop/BackDrop";
-import CartCardsContainer from "../cartCardsContainer/CartCardsContainer";
-import CartTotalPrice from "../cartTotalPrice/CartTotalPrice";
+import { BackDrop } from "../../";
+import { CartCardsContainer, CartTotalPrice } from "../";
+import { CheckOut } from "../cartButtons/CartButtons";
 
 import { CartContext } from "../../../context/cartData/CartContext";
 
 import "./cartPopup.css";
-import { CheckOut } from "../cartButtons/CartButtons";
 
 export default class CartPopup extends Component {
   static contextType = CartContext;

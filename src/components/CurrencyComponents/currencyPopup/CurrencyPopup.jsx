@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import CurrencyBG from "../currencyBG/CurrencyBG";
+import { CurrencyBG } from "../";
 
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 

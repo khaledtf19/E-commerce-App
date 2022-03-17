@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import CartCard from "../cartCard/CartCard";
+import { CartCard } from "../";
 
 import { CartContext } from "../../../context/cartData/CartContext";
 

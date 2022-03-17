@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Product from "../../components/productComponents/product/Product";
+import { Product } from "../../components/productComponents";
 
 export default class ProductPage extends Component {
   constructor(props) {

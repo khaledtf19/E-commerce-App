@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { LocationContext } from "../../context/locationData/LocationData";
 
-import CardsContainer from "../../components/CardsComponents/cardsContainer/CardsContainer";
+import { CardsContainer } from "../../components/CardsComponents";
 
 const getTechData = `{
   category(input: {
