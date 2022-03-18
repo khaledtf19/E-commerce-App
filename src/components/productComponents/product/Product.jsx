@@ -11,7 +11,6 @@ export default class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: props.product,
       selectedImage: 0,
       selectedAttributes: [],
     };
@@ -20,7 +19,8 @@ export default class Product extends Component {
   static contextType = CurrencyContext;
 
   render() {
-    const { product, selectedImage } = this.state;
+    const { selectedImage } = this.state;
+    let { product } = this.props;
     const { selectedCurrency } = this.context;
 
     const setSelectedAttributes = (value) => {
