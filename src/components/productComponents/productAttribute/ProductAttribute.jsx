@@ -22,8 +22,7 @@ export default class ProductAttribute extends Component {
       tmp.push({ id: attributeId, selectedItem: fistItem });
 
       this.props.setSelectedAttributes(tmp);
-      this.setState({ selectedItem: fistItem });
-      this.setState({ finished: true });
+      this.setState({ selectedItem: fistItem, finished: true });
     };
 
     makeDefaultAttributes();
@@ -68,10 +67,7 @@ export default class ProductAttribute extends Component {
                   }
                 >
                   {attribute.id.toLowerCase() !== "color" ? (
-                    <p>
-                      {item.value}
-                      {console.log(item)}
-                    </p>
+                    <p>{item.value}</p>
                   ) : (
                     ""
                   )}

@@ -18,10 +18,6 @@ export default class Navbar extends Component {
 
   static contextType = LocationContext;
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   render() {
     let { location } = this.context;
 

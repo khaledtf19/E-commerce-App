@@ -34,8 +34,7 @@ export default class CurrencyPopup extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          this.setState({ currencies: data.data.currencies });
-          this.setState({ finished: true });
+          this.setState({ currencies: data.data.currencies, finished: true });
         });
     };
     getData();
@@ -65,8 +64,6 @@ export default class CurrencyPopup extends Component {
                       }`}
                       onClick={() => setSelectedCurrency(currency)}
                     >
-                      {console.log(currency)}
-
                       <p>{currency.symbol}</p>
                       <p>{currency.label}</p>
                     </div>

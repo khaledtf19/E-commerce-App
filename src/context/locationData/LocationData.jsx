@@ -13,7 +13,6 @@ export default class LocationProvider extends Component {
   render() {
     const setLocation = (value) => {
       this.setState({ location: value });
-      console.log(value);
     };
 
     return (

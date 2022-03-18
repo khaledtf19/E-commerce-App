@@ -61,9 +61,11 @@ export default class CartCard extends Component {
       })
         .then((res) => res.json())
         .then((data) => {
-          this.setState({ productData: data.data.product });
-          this.setState({ finished: true });
-          this.setState({ loading: false });
+          this.setState({
+            productData: data.data.product,
+            finished: true,
+            loading: false,
+          });
         });
     };
     getData();
