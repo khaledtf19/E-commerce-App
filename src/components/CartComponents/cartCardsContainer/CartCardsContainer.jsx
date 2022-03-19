@@ -9,7 +9,7 @@ import "./cartCardsContainer.css";
 export default class CartCardsContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { productIds: [] };
+    this.state = { productIds: [], loading: false };
   }
 
   static contextType = CartContext;
@@ -17,11 +17,20 @@ export default class CartCardsContainer extends Component {
   render() {
     const { selectedProducts } = this.context;
 
+    const setLoading = (value) => {
+      this.setState({ loading: value });
+    };
+
     return (
       <div className="cartPopup__cards__container">
         <p>My Bag, {selectedProducts.length} items</p>
+        {this.state.loading && <p>Loading..</p>}
         {selectedProducts.map((product) => (
-          <CartCard product={product} key={product.id} />
+          <CartCard
+            product={product}
+            key={product.id}
+            setLoading={setLoading}
+          />
         ))}
       </div>
     );

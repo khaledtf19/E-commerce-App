@@ -41,7 +41,7 @@ export default class ProductPage extends Component {
         }
         amount
       }
-      
+
       brand
       category
     }
@@ -69,13 +69,7 @@ export default class ProductPage extends Component {
     this.getData();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    let { pathname } = window.location;
-    let productId = pathname.slice(9, pathname.length);
-    if (productId !== this.state.productId) {
-      this.getData();
-    }
-  }
+  compo;
 
   render() {
     return (
