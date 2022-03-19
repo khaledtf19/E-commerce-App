@@ -12,7 +12,7 @@ export default class ProductPage extends Component {
     };
   }
 
-  componentDidMount() {
+  getQuery = () => {
     let { pathname } = window.location;
     let productId = pathname.slice(9, pathname.length);
     this.setState({ productId: productId });
@@ -41,27 +41,40 @@ export default class ProductPage extends Component {
         }
         amount
       }
+      
       brand
       category
     }
     }`;
+    return getProductData;
+  };
 
-    const getData = async () => {
-      fetch("http://localhost:4000", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: getProductData,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          this.setState({ product: data.data.product, finished: true });
-        });
-    };
-    getData();
+  getData = async () => {
+    fetch("http://localhost:4000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: this.getQuery(),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ product: data.data.product, finished: true });
+      });
+  };
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    let { pathname } = window.location;
+    let productId = pathname.slice(9, pathname.length);
+    if (productId !== this.state.productId) {
+      this.getData();
+    }
   }
 
   render() {
