@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { CardsContainer } from "../../components/CardsComponents";
 
-import { LocationContext } from "../../context/locationData/LocationData";
+import { CategoryContext } from "../../context/categoryData/CategoryContext";
 
 export default class CategoryPage extends Component {
-  static contextType = LocationContext;
+  static contextType = CategoryContext;
 
   render() {
     const { selectedCategory } = this.context;

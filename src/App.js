@@ -8,7 +8,7 @@ import { CurrencyPopup } from "./components/CurrencyComponents";
 
 import CartProvider from "./context/cartData/CartContext";
 import CurrencyProvider from "./context/currencyData/CurrencyContext";
-import LocationProvider from "./context/locationData/LocationData";
+import CategoryProvider from "./context/categoryData/CategoryContext";
 
 import "./App.css";
 
@@ -16,7 +16,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <LocationProvider>
+        <CategoryProvider>
           <CurrencyProvider>
             <CartProvider>
               <Navbar />
@@ -33,7 +33,7 @@ export default class App extends Component {
               </main>
             </CartProvider>
           </CurrencyProvider>
-        </LocationProvider>
+        </CategoryProvider>
       </div>
     );
   }

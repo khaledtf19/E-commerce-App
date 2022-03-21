@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import { LocationContext } from "../../context/locationData/LocationData";
+import { CategoryContext } from "../../context/categoryData/CategoryContext";
 
 import { CartNav } from "../CartComponents";
 import { CurrencyNav } from "../CurrencyComponents";
@@ -22,7 +22,7 @@ export default class Navbar extends Component {
     this.state = { categories: [], finished: false };
   }
 
-  static contextType = LocationContext;
+  static contextType = CategoryContext;
 
   componentDidMount() {
     const getCategories = async () => {
@@ -42,7 +42,6 @@ export default class Navbar extends Component {
             finished: true,
           });
           this.context.setSelectedCategory(data.data.categories[0].name);
-          console.log(data.data.categories);
         });
     };
     getCategories();
@@ -72,44 +71,6 @@ export default class Navbar extends Component {
                   )}
                 </li>
               ))}
-
-            {/* <li className="nav__list-item">
-              <Link
-                className={`nav__list__item-link ${
-                  location === "/" && "selected"
-                }`}
-                to={"/"}
-              >
-                All
-              </Link>
-              {location === "/" && <div className="nav__list-item_greenBar" />}
-            </li>
-            <li className="nav__list-item">
-              <Link
-                className={`nav__list__item-link ${
-                  location === "/tech" && "selected"
-                }`}
-                to={"/tech"}
-              >
-                Tech
-              </Link>
-              {location === "/tech" && (
-                <div className="nav__list-item_greenBar" />
-              )}
-            </li>
-            <li className="nav__list-item">
-              <Link
-                className={`nav__list__item-link ${
-                  location === "/clothes" && "selected"
-                }`}
-                to={"/clothes"}
-              >
-                clothes
-              </Link>
-              {location === "/clothes" && (
-                <div className="nav__list-item_greenBar" />
-              )}
-            </li> */}
           </ul>
         </div>
 
