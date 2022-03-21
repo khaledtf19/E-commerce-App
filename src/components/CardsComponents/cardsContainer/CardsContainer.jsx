@@ -46,7 +46,7 @@ export default class CardsContainer extends Component {
     }
   }`;
 
-  getData = async (selectedCategory) => {
+  getData = async () => {
     this.setState({ loading: true });
     fetch("http://localhost:4000", {
       method: "POST",
@@ -54,7 +54,7 @@ export default class CardsContainer extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query: this.query(selectedCategory),
+        query: this.query(this.props.selectedCategory),
       }),
     })
       .then((res) => res.json())
@@ -68,11 +68,11 @@ export default class CardsContainer extends Component {
   };
 
   componentDidMount() {
-    this.getData(this.props.selectedCategory);
+    this.getData();
   }
   componentDidUpdate(prevProps) {
     if (prevProps.selectedCategory !== this.props.selectedCategory) {
-      this.getData(this.props.selectedCategory);
+      this.getData();
     }
   }
 

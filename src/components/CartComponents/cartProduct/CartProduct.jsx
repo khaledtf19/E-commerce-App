@@ -47,6 +47,7 @@ export default class CartProduct extends Component {
     }}`;
     return getProductData;
   };
+
   getData = async () => {
     fetch("http://localhost:4000", {
       method: "POST",

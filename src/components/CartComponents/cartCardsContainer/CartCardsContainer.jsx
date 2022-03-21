@@ -15,7 +15,7 @@ export default class CartCardsContainer extends Component {
   static contextType = CartContext;
 
   render() {
-    const { selectedProducts } = this.context;
+    const { selectedProducts, totalAmount } = this.context;
 
     const setLoading = (value) => {
       this.setState({ loading: value });
@@ -23,7 +23,7 @@ export default class CartCardsContainer extends Component {
 
     return (
       <div className="cartPopup__cards__container">
-        <p>My Bag, {selectedProducts.length} items</p>
+        <p>My Bag, {totalAmount} items</p>
         {this.state.loading && <p>Loading..</p>}
         {selectedProducts.map((product, index) => (
           <CartCard
