@@ -7,6 +7,7 @@ export default class LocationProvider extends Component {
     super(props);
     this.state = {
       location: "",
+      selectedCategory: "",
     };
   }
 
@@ -15,9 +16,18 @@ export default class LocationProvider extends Component {
       this.setState({ location: value });
     };
 
+    const setSelectedCategory = (value) => {
+      this.setState({ selectedCategory: value });
+    };
+
     return (
       <LocationContext.Provider
-        value={{ location: this.state.location, setLocation }}
+        value={{
+          location: this.state.location,
+          setLocation,
+          selectedCategory: this.state.selectedCategory,
+          setSelectedCategory,
+        }}
       >
         {this.props.children}
       </LocationContext.Provider>

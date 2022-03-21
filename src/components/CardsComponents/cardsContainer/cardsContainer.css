@@ -16,3 +16,6 @@
   justify-items: center;
   gap: 100px 50px;
 }
+.category__name {
+  text-transform: capitalize;
+}

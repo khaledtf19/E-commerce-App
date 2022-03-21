@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router";
 
-import { All, Tech, Clothes, Cart, ProductPage } from "./pages";
+import { Cart, ProductPage, CategoryPage } from "./pages";
 import { Navbar, Layout } from "./components";
 import { CartPopup } from "./components/CartComponents";
 import { CurrencyPopup } from "./components/CurrencyComponents";
@@ -25,9 +25,7 @@ export default class App extends Component {
                 <CurrencyPopup />
                 <Layout>
                   <Routes>
-                    <Route path="/" element={<All />} />
-                    <Route path="/tech" element={<Tech />} />
-                    <Route path="/clothes" element={<Clothes />} />
+                    <Route path="/" element={<CategoryPage />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/product/:id" element={<ProductPage />} />
                   </Routes>

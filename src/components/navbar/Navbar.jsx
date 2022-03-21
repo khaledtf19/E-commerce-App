@@ -41,6 +41,7 @@ export default class Navbar extends Component {
             categories: data.data.categories,
             finished: true,
           });
+          this.context.setSelectedCategory(data.data.categories[0].name);
           console.log(data.data.categories);
         });
     };
@@ -48,24 +49,25 @@ export default class Navbar extends Component {
   }
 
   render() {
-    let { location } = this.context;
+    let { selectedCategory, setSelectedCategory } = this.context;
 
     return (
       <div className="nav__container">
         <div className="nav__first__container">
           <ul className="nav__list">
             {this.state.finished &&
-              this.state.categories.map((category) => (
-                <li className="nav__list-item">
+              this.state.categories.map((category, index) => (
+                <li className="nav__list-item" key={index}>
                   <Link
+                    to={`/`}
                     className={`nav__list__item-link ${
-                      location === `/${category.name}` && "selected"
+                      category.name === selectedCategory && "selected"
                     }`}
-                    to={"/"}
+                    onClick={() => setSelectedCategory(category.name)}
                   >
                     {category.name}
                   </Link>
-                  {location === `/${category.name}` && (
+                  {selectedCategory === category.name && (
                     <div className="nav__list-item_greenBar" />
                   )}
                 </li>

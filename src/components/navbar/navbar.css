@@ -44,6 +44,7 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-text);
+  cursor: pointer;
 }
 
 .nav__list__item-link:hover {
