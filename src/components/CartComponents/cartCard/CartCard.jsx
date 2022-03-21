@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 
 import { DecrementCart, IncrementCart } from "../cartButtons/CartButtons";
-import CartCardLoading from "./CartCardLoading";
 
 import "./cartCard.css";
 
@@ -13,16 +11,14 @@ export default class CartCard extends Component {
     super(props);
     this.state = {
       productData: {},
-      product: props.product,
       finished: false,
-      loading: false,
     };
   }
 
   static contextType = CurrencyContext;
 
-  componentDidMount() {
-    const getProductData = `{product(id: "${this.state.product.id}") {
+  getQuery = () => {
+    const getProductData = `{product(id: "${this.props.product.id}") {
       id
       name
       gallery
@@ -48,33 +44,40 @@ export default class CartCard extends Component {
       brand
       category
     }}`;
-
-    const getData = async () => {
-      this.props.setLoading(true);
-
-      fetch("http://localhost:4000", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: getProductData,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          this.setState({
-            productData: data.data.product,
-            finished: true,
-          });
-          this.props.setLoading(false);
+    return getProductData;
+  };
+  getData = async () => {
+    fetch("http://localhost:4000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query: this.getQuery(),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          productData: data.data.product,
+          finished: true,
         });
-    };
-    getData();
+      });
+  };
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.product !== this.props.product) {
+      this.getData();
+    }
   }
 
   render() {
-    const { productData, product, loading } = this.state;
+    const { productData } = this.state;
+    const { productIndex, product } = this.props;
     const { selectedCurrency } = this.context;
 
     return (
@@ -100,34 +103,39 @@ export default class CartCard extends Component {
                 </p>
               </div>
               <div className="cart__card__info__attributes__container">
-                {product.attributes.map((attribute) => (
+                {product.attributes.map((attribute, index) => (
                   <div
-                    key={attribute.selectedItem.id}
-                    className="cart__card__info__attributes__attribute"
-                    style={
-                      attribute.id.toLowerCase() === "color"
-                        ? { background: attribute.selectedItem.value }
-                        : {}
-                    }
+                    className="cart__card__info__attributes__attribute__container"
+                    key={index}
                   >
-                    {attribute.id.toLowerCase() !== "color" ? (
-                      <p>{attribute.selectedItem.value}</p>
-                    ) : (
-                      ""
-                    )}
+                    <label>{productData.attributes[index].name}:</label>
+                    <div
+                      className="cart__card__info__attributes__attribute"
+                      style={
+                        attribute.id.toLowerCase() === "color"
+                          ? { background: attribute.selectedItem.value }
+                          : {}
+                      }
+                    >
+                      {attribute.id.toLowerCase() !== "color" ? (
+                        <p>{attribute.selectedItem.value}</p>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
             <div className="cart__card__buttons">
               <div className="cart__card__buttons_button">
-                <IncrementCart ProductId={productData.id} />
+                <IncrementCart productIndex={productIndex} />
               </div>
               <div className="cart__card__buttons__amount">
                 <p>{this.props.product.amount}</p>
               </div>
               <div className="cart__card__buttons_button">
-                <DecrementCart ProductId={productData.id} />
+                <DecrementCart productIndex={productIndex} />
               </div>
             </div>
             <div className="cart__Card__image">

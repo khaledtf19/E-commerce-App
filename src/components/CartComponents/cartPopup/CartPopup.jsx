@@ -28,21 +28,23 @@ export default class CartPopup extends Component {
               onClick={(e) => e.stopPropagation()}
             >
               <CartCardsContainer />
-              <div className="cartPopup__totalPrice">
-                <CartTotalPrice selectedProducts={selectedProducts} />
-              </div>
-              <div className="cartPopup__buttons">
-                <div className="cartPopup__buttons__button__container">
-                  <Link
-                    className="cartPopup__buttons__button__link"
-                    to={`/cart`}
-                    onClick={() => setOpenCart(false)}
-                  >
-                    View Bag
-                  </Link>
+              <div className="cartPopup__info">
+                <div className="cartPopup__totalPrice">
+                  <CartTotalPrice selectedProducts={selectedProducts} />
                 </div>
-                <div className="cartPopup__buttons__button__container">
-                  <CheckOut />
+                <div className="cartPopup__buttons">
+                  <div className="cartPopup__buttons__button__container">
+                    <Link
+                      className="cartPopup__buttons__button__link"
+                      to={`/cart`}
+                      onClick={() => setOpenCart(false)}
+                    >
+                      View Bag
+                    </Link>
+                  </div>
+                  <div className="cartPopup__buttons__button__container">
+                    <CheckOut />
+                  </div>
                 </div>
               </div>
             </div>

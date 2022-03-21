@@ -62,7 +62,10 @@ export default class CurrencyPopup extends Component {
                           ? "selectedCurrency"
                           : ""
                       }`}
-                      onClick={() => setSelectedCurrency(currency)}
+                      onClick={() => {
+                        setSelectedCurrency(currency);
+                        setOpenCurrency(false);
+                      }}
                     >
                       <p>{currency.symbol}</p>
                       <p>{currency.label}</p>

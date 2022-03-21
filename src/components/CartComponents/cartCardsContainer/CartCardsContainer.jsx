@@ -25,11 +25,12 @@ export default class CartCardsContainer extends Component {
       <div className="cartPopup__cards__container">
         <p>My Bag, {selectedProducts.length} items</p>
         {this.state.loading && <p>Loading..</p>}
-        {selectedProducts.map((product) => (
+        {selectedProducts.map((product, index) => (
           <CartCard
             product={product}
-            key={product.id}
+            key={index}
             setLoading={setLoading}
+            productIndex={index}
           />
         ))}
       </div>

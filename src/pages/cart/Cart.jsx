@@ -22,8 +22,8 @@ export default class Cart extends Component {
           <h1>Cart</h1>
         </div>
         <div className="cart__products__container">
-          {selectedProducts.map((product) => (
-            <CartProduct product={product} key={product.id} />
+          {selectedProducts.map((product, index) => (
+            <CartProduct product={product} key={index} productIndex={index} />
           ))}
         </div>
       </div>

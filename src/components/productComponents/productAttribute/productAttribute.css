@@ -6,8 +6,6 @@
   width: 100%;
   gap: 5px;
 }
-.attribute__name {
-}
 
 .attribute__items {
   display: flex;
@@ -46,4 +44,5 @@
   color: white;
   background-color: var(--color-hover2);
   border: 3px solid var(--color-hover2);
+  border-radius: 20px;
 }

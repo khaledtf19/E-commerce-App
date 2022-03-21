@@ -14,6 +14,7 @@ const getTechData = `{
       category
       gallery
       inStock
+      brand
       attributes{
         id
         name

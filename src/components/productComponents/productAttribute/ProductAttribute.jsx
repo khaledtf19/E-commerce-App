@@ -7,7 +7,6 @@ export default class ProductAttribute extends Component {
     super(props);
     this.state = {
       attribute: props.attribute,
-      selectedAttributes: props.selectedAttributes,
       selectedItem: {},
       finished: false,
     };
@@ -15,7 +14,7 @@ export default class ProductAttribute extends Component {
 
   componentDidMount() {
     const makeDefaultAttributes = () => {
-      let tmp = this.state.selectedAttributes;
+      let tmp = this.props.selectedAttributes;
       let attributeId = this.state.attribute.id;
       let fistItem = this.state.attribute.items[0];
 
@@ -29,7 +28,8 @@ export default class ProductAttribute extends Component {
   }
 
   render() {
-    let { attribute, selectedAttributes, selectedItem } = this.state;
+    let { attribute, selectedItem } = this.state;
+    let { selectedAttributes } = this.props;
 
     let { setSelectedAttributes } = this.props;
 

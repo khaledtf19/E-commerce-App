@@ -10,13 +10,13 @@ export default class CartNav extends Component {
   static contextType = CartContext;
 
   render() {
-    const { openCart, setOpenCart, selectedProducts } = this.context;
+    const { openCart, setOpenCart, totalAmount } = this.context;
     return (
       <>
         <div onClick={() => setOpenCart(!openCart)} className="cartNav">
-          {selectedProducts.length > 0 ? (
+          {totalAmount > 0 ? (
             <div className="cartNav__count">
-              <p>{selectedProducts.length}</p>
+              <p>{totalAmount}</p>
             </div>
           ) : (
             ""

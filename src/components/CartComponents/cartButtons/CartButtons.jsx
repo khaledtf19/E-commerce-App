@@ -11,6 +11,7 @@ export class AddToCart extends Component {
     super(props);
     this.state = {
       inStock: props.inStock,
+      product: props.product,
     };
   }
 
@@ -20,18 +21,21 @@ export class AddToCart extends Component {
     const { addProduct } = this.context;
 
     const handleSelectProduct = () => {
-      let productId = this.props.product.id;
+      let productId = this.state.product.id;
       let sProduct = {};
       sProduct.attributes = this.props.selectedAttributes;
       sProduct.id = productId;
       sProduct.prices = this.props.product.prices;
-      addProduct(sProduct);
+      return addProduct(sProduct);
     };
 
     return (
       <>
         {this.state.inStock ? (
-          <button onClick={handleSelectProduct} className="cart__button">
+          <button
+            onClick={() => handleSelectProduct()}
+            className="cart__button"
+          >
             Add To Cart
           </button>
         ) : (
@@ -45,21 +49,16 @@ export class AddToCart extends Component {
 }
 
 export class IncrementCart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { productId: props.ProductId };
-  }
-
   static contextType = CartContext;
 
   render() {
-    let { productId } = this.state;
+    let { productIndex } = this.props;
 
     let { incrementAmount } = this.context;
 
     return (
       <div
-        onClick={() => incrementAmount(productId)}
+        onClick={() => incrementAmount(productIndex)}
         className="cart__button__small"
       >
         +
@@ -69,21 +68,17 @@ export class IncrementCart extends Component {
 }
 
 export class DecrementCart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { productId: props.ProductId };
-  }
-
   static contextType = CartContext;
 
   render() {
-    let { productId } = this.state;
+    let { productIndex } = this.props;
+
     let { decrementAmount } = this.context;
 
     return (
       <div
         className="cart__button__small"
-        onClick={() => decrementAmount(productId)}
+        onClick={() => decrementAmount(productIndex)}
       >
         -
       </div>
@@ -92,12 +87,8 @@ export class DecrementCart extends Component {
 }
 
 export class CheckOut extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { productId: props.ProductId };
-  }
-
   static contextType = CartContext;
+
   render() {
     const { checkOut } = this.context;
     return (

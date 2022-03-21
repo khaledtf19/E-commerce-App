@@ -10,13 +10,42 @@ import logo from "../../assets/logo.svg";
 
 import "./navbar.css";
 
+const query = `{
+  categories{
+    name
+  }
+}`;
+
 export default class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { categories: [], finished: false };
   }
 
   static contextType = LocationContext;
+
+  componentDidMount() {
+    const getCategories = async () => {
+      fetch("http://localhost:4000", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: query,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          this.setState({
+            categories: data.data.categories,
+            finished: true,
+          });
+          console.log(data.data.categories);
+        });
+    };
+    getCategories();
+  }
 
   render() {
     let { location } = this.context;
@@ -25,7 +54,24 @@ export default class Navbar extends Component {
       <div className="nav__container">
         <div className="nav__first__container">
           <ul className="nav__list">
-            <li className="nav__list-item">
+            {this.state.finished &&
+              this.state.categories.map((category) => (
+                <li className="nav__list-item">
+                  <Link
+                    className={`nav__list__item-link ${
+                      location === `/${category.name}` && "selected"
+                    }`}
+                    to={"/"}
+                  >
+                    {category.name}
+                  </Link>
+                  {location === `/${category.name}` && (
+                    <div className="nav__list-item_greenBar" />
+                  )}
+                </li>
+              ))}
+
+            {/* <li className="nav__list-item">
               <Link
                 className={`nav__list__item-link ${
                   location === "/" && "selected"
@@ -34,9 +80,7 @@ export default class Navbar extends Component {
               >
                 All
               </Link>
-              {location === "/" && (
-                <div className="nav__list-item_greenBar"></div>
-              )}
+              {location === "/" && <div className="nav__list-item_greenBar" />}
             </li>
             <li className="nav__list-item">
               <Link
@@ -48,7 +92,7 @@ export default class Navbar extends Component {
                 Tech
               </Link>
               {location === "/tech" && (
-                <div className="nav__list-item_greenBar"></div>
+                <div className="nav__list-item_greenBar" />
               )}
             </li>
             <li className="nav__list-item">
@@ -61,9 +105,9 @@ export default class Navbar extends Component {
                 clothes
               </Link>
               {location === "/clothes" && (
-                <div className="nav__list-item_greenBar"></div>
+                <div className="nav__list-item_greenBar" />
               )}
-            </li>
+            </li> */}
           </ul>
         </div>
 

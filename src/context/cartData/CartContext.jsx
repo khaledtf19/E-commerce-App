@@ -1,5 +1,4 @@
 import React, { Component, createContext } from "react";
-import { CurrencyContext } from "../currencyData/CurrencyContext";
 
 export const CartContext = createContext();
 
@@ -11,9 +10,21 @@ export default class CartProvider extends Component {
       selectedProducts:
         JSON.parse(localStorage.getItem("selected_Products")) || [],
       totalPrice: [],
+      totalAmount: 0,
     };
   }
-  static contextType = CurrencyContext;
+
+  countTotalAmount = (products) => {
+    let totalAmount = 0;
+    products.forEach((product) => {
+      totalAmount += product.amount;
+    });
+    this.setState({ totalAmount: totalAmount });
+  };
+
+  componentDidMount() {
+    this.countTotalAmount(this.state.selectedProducts);
+  }
 
   render() {
     const setOpenCart = (value) => {
@@ -41,92 +52,75 @@ export default class CartProvider extends Component {
     };
 
     const setSelectedProducts = (value) => {
+      this.countTotalAmount(value);
+
       updateLocal(countTotal(value));
     };
 
     const addProduct = (newProduct) => {
+      if (!newProduct) {
+        return;
+      }
+
       let newProductId = newProduct.id;
       let oldProductIndex = null;
 
-      this.state.selectedProducts.map((product, index) =>
-        newProductId.toLowerCase() === product.id.toLowerCase()
-          ? (oldProductIndex = index)
-          : ""
-      );
+      this.state.selectedProducts.forEach((product, index) => {
+        if (newProductId.toLowerCase() === product.id.toLowerCase()) {
+          let count = 0;
+          product.attributes.forEach((attribute, index) => {
+            if (
+              attribute.selectedItem.id.toLowerCase() ===
+              newProduct.attributes[index].selectedItem.id.toLowerCase()
+            ) {
+              count++;
+            }
+          });
+
+          if (count === newProduct.attributes.length) {
+            product.index = index;
+            oldProductIndex = index;
+          }
+        }
+      });
 
       if (Number.isInteger(oldProductIndex)) {
         let tmp = this.state.selectedProducts;
-        tmp[oldProductIndex].attributes = newProduct.attributes;
 
         tmp[oldProductIndex].amount += 1;
-        setSelectedProducts(tmp);
+        return setSelectedProducts(tmp);
       } else {
         newProduct.amount = 1;
         let tmp = this.state.selectedProducts;
         tmp.push(newProduct);
-        setSelectedProducts(tmp);
+        return setSelectedProducts(tmp);
       }
     };
 
-    const removeProduct = (productId) => {
+    const removeProduct = (productIndex) => {
       let tmp = this.state.selectedProducts;
-      let productIndex = null;
 
-      this.state.selectedProducts.map((product, index) =>
-        productId.toLowerCase() === product.id.toLowerCase()
-          ? (productIndex = index)
-          : ""
-      );
+      tmp.splice(productIndex, 1);
+      setSelectedProducts(tmp);
+    };
 
-      if (Number.isInteger(productIndex)) {
+    const incrementAmount = (productIndex) => {
+      let tmp = this.state.selectedProducts;
+      tmp[productIndex].amount += 1;
+      return setSelectedProducts(tmp);
+    };
+
+    const decrementAmount = (productIndex) => {
+      let tmp = this.state.selectedProducts;
+
+      if (tmp[productIndex].amount - 1 === 0) {
         tmp.splice(productIndex, 1);
-        setSelectedProducts(tmp);
-      } else {
-        return;
-      }
-    };
-
-    const incrementAmount = (productId) => {
-      let tmp = this.state.selectedProducts;
-      let productIndex = null;
-
-      this.state.selectedProducts.map((product, index) =>
-        productId.toLowerCase() === product.id.toLowerCase()
-          ? (productIndex = index)
-          : ""
-      );
-
-      if (Number.isInteger(productIndex)) {
-        tmp[productIndex].amount += 1;
 
         setSelectedProducts(tmp);
       } else {
-        return;
-      }
-    };
+        tmp[productIndex].amount -= 1;
 
-    const decrementAmount = (productId) => {
-      let tmp = this.state.selectedProducts;
-      let productIndex = null;
-
-      this.state.selectedProducts.map((product, index) =>
-        productId.toLowerCase() === product.id.toLowerCase()
-          ? (productIndex = index)
-          : ""
-      );
-
-      if (Number.isInteger(productIndex)) {
-        if (tmp[productIndex].amount - 1 === 0) {
-          tmp.splice(productIndex, 1);
-
-          setSelectedProducts(tmp);
-        } else {
-          tmp[productIndex].amount -= 1;
-
-          setSelectedProducts(tmp);
-        }
-      } else {
-        return;
+        setSelectedProducts(tmp);
       }
     };
 
@@ -137,6 +131,7 @@ export default class CartProvider extends Component {
     return (
       <CartContext.Provider
         value={{
+          totalAmount: this.state.totalAmount,
           openCart: this.state.openCart,
           setOpenCart,
           selectedProducts: this.state.selectedProducts,

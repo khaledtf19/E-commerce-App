@@ -13,6 +13,7 @@ const getAllData = `{
       category
       gallery
       inStock
+      brand
       attributes{
         id
         name

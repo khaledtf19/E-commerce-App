@@ -60,6 +60,11 @@
   padding-top: 20px;
 }
 
+.card__product__info__name {
+  display: flex;
+  gap: 10px;
+}
+
 .card__product__info-container:hover {
   opacity: 0.8;
 }

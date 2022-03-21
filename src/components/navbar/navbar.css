@@ -33,8 +33,13 @@
 }
 
 .nav__list__item-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   padding: 1.5rem 0;
+  height: 100%;
+  width: 100%;
 
   font-size: 1rem;
   font-weight: 500;

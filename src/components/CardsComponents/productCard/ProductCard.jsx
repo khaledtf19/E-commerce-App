@@ -86,7 +86,9 @@ export default class ProductCard extends Component {
             )}
           </div>
           <div className="card__product__info-container">
-            <h3 className="card__product__name">{product.name}</h3>
+            <h3 className="card__product__name">
+              {product.brand} {product.name}
+            </h3>
             <p className="card__product__price">
               {product.prices.map((el) =>
                 el.currency.label === selectedCurrency.label
