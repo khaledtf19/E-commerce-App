@@ -79,7 +79,7 @@ export default class Product extends Component {
             <AddToCart
               inStock={product.inStock}
               selectedAttributes={this.state.selectedAttributes}
-              productId={product.id}
+              product={product}
             />
           </div>
           <div

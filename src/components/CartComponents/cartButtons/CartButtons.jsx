@@ -13,7 +13,7 @@ export class AddToCart extends Component {
     const { addProduct } = this.context;
 
     const handleSelectProduct = () => {
-      let productId = this.props.productId;
+      let productId = this.props.product.id;
       let sProduct = {};
       sProduct.attributes = this.props.selectedAttributes;
       sProduct.id = productId;
