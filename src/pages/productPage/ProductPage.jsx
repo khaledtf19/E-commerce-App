@@ -9,13 +9,14 @@ export default class ProductPage extends Component {
       productId: "",
       product: {},
       finished: false,
+      loading: false,
     };
   }
 
   getQuery = () => {
     let { pathname } = window.location;
     let productId = pathname.slice(9, pathname.length);
-    this.setState({ productId: productId });
+    this.setState({ productId: productId, loading: true });
 
     const getProductData = `{product(id: "${productId}"){
       id
@@ -61,7 +62,11 @@ export default class ProductPage extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ product: data.data.product, finished: true });
+        this.setState({
+          product: data.data.product,
+          finished: true,
+          loading: false,
+        });
       });
   };
 
@@ -73,7 +78,13 @@ export default class ProductPage extends Component {
 
   render() {
     return (
-      <>{this.state.finished && <Product product={this.state.product} />}</>
+      <>
+        {this.state.loading ? (
+          <h1>Loading</h1>
+        ) : (
+          this.state.finished && <Product product={this.state.product} />
+        )}
+      </>
     );
   }
 }

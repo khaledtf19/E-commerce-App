@@ -7,21 +7,13 @@ import cart_green from "../../../assets/cart_green.svg";
 import "./cartButtons.css";
 
 export class AddToCart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inStock: props.inStock,
-      product: props.product,
-    };
-  }
-
   static contextType = CartContext;
 
   render() {
     const { addProduct } = this.context;
 
     const handleSelectProduct = () => {
-      let productId = this.state.product.id;
+      let productId = this.props.productId;
       let sProduct = {};
       sProduct.attributes = this.props.selectedAttributes;
       sProduct.id = productId;
@@ -31,7 +23,7 @@ export class AddToCart extends Component {
 
     return (
       <>
-        {this.state.inStock ? (
+        {this.props.inStock ? (
           <button
             onClick={() => handleSelectProduct()}
             className="cart__button"
