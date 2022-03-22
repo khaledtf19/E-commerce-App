@@ -108,7 +108,7 @@ export default class CartCard extends Component {
                     className="cart__card__info__attributes__attribute__container"
                     key={index}
                   >
-                    <label>{productData.attributes[index].name}:</label>
+                    <label>{productData?.attributes[index].name}:</label>
                     <div
                       className="cart__card__info__attributes__attribute"
                       style={

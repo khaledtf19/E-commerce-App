@@ -18,16 +18,14 @@ export class AddToCart extends Component {
       sProduct.attributes = this.props.selectedAttributes;
       sProduct.id = productId;
       sProduct.prices = this.props.product.prices;
-      return addProduct(sProduct);
+
+      addProduct(sProduct);
     };
 
     return (
       <>
         {this.props.inStock ? (
-          <button
-            onClick={() => handleSelectProduct()}
-            className="cart__button"
-          >
+          <button onClick={handleSelectProduct} className="cart__button">
             Add To Cart
           </button>
         ) : (
