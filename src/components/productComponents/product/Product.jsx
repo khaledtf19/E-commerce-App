@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DOMPurify from "dompurify";
 
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 
@@ -83,7 +84,9 @@ export default class Product extends Component {
           </div>
           <div
             className="product__info__description"
-            dangerouslySetInnerHTML={{ __html: product.description }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(product.description),
+            }}
           />
         </div>
       </div>

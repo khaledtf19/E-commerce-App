@@ -15,8 +15,8 @@ export default class ProductAttribute extends Component {
   componentDidMount() {
     const makeDefaultAttributes = () => {
       let tmp = this.props.selectedAttributes;
-      let attributeId = this.state.attribute.id;
-      let fistItem = this.state.attribute.items[0];
+      let attributeId = this.props.attribute.id;
+      let fistItem = this.props.attribute.items[0];
 
       tmp.push({ id: attributeId, selectedItem: fistItem });
 
@@ -28,8 +28,8 @@ export default class ProductAttribute extends Component {
   }
 
   render() {
-    let { attribute, selectedItem } = this.state;
-    let { selectedAttributes } = this.props;
+    let { selectedItem } = this.state;
+    let { selectedAttributes, attribute } = this.props;
 
     let { setSelectedAttributes } = this.props;
 

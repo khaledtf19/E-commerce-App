@@ -119,7 +119,7 @@ export default class CartProduct extends Component {
                   {productData.brand}
                 </h2>
                 <h2 className="cart__product__info__name__name">
-                  {productData.name}
+                  {productData?.name}
                 </h2>
               </div>
               <div className="cart__product__info__price">
@@ -137,7 +137,7 @@ export default class CartProduct extends Component {
                     className="cart__product__info__attributes__attribute__container"
                     key={index}
                   >
-                    <label>{productData.attributes[index].name}:</label>
+                    <label>{productData?.attributes[index]?.name}:</label>
                     <div
                       className="cart__product__info__attributes__attribute"
                       style={
