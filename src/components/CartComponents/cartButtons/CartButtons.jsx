@@ -15,7 +15,9 @@ export class AddToCart extends Component {
     const handleSelectProduct = () => {
       let productId = this.props.product.id;
       let sProduct = {};
-      sProduct.attributes = this.props.selectedAttributes;
+      sProduct.attributes = JSON.parse(
+        JSON.stringify(this.props.selectedAttributes)
+      );
       sProduct.id = productId;
       sProduct.prices = this.props.product.prices;
 

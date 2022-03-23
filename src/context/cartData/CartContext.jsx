@@ -14,12 +14,6 @@ export default class CartProvider extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedProducts !== this.state.selectedProducts) {
-      console.log(this.state.selectedProducts);
-    }
-  }
-
   countTotalAmount = (products) => {
     let totalAmount = 0;
     products.forEach((product) => {
@@ -38,7 +32,7 @@ export default class CartProvider extends Component {
     };
 
     const countTotal = (products) => {
-      let tmp = products;
+      let tmp = [...products];
 
       tmp = tmp.map((product) => {
         let productAmount = product.amount;
@@ -57,7 +51,6 @@ export default class CartProvider extends Component {
     };
 
     const setSelectedProducts = (value) => {
-      console.log(countTotal(value));
       this.countTotalAmount(value);
       this.setState({ selectedProducts: countTotal(value) });
       updateLocal(countTotal(value));
@@ -70,6 +63,7 @@ export default class CartProvider extends Component {
 
       let newProductId = newProduct.id;
       let oldProductIndex = null;
+
       this.state.selectedProducts.forEach((product, index) => {
         if (newProductId.toLowerCase() === product.id.toLowerCase()) {
           let count = 0;
@@ -91,13 +85,13 @@ export default class CartProvider extends Component {
       });
 
       if (Number.isInteger(oldProductIndex)) {
-        let tmp = this.state.selectedProducts;
+        let tmp = [...this.state.selectedProducts];
 
         tmp[oldProductIndex].amount += 1;
         return setSelectedProducts(tmp);
       } else {
         newProduct.amount = 1;
-        let tmp = this.state.selectedProducts;
+        let tmp = [...this.state.selectedProducts];
         tmp.push(newProduct);
         return setSelectedProducts(tmp);
       }
