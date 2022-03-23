@@ -78,7 +78,7 @@ export default class Product extends Component {
           <div className="product__info__cartButton">
             <AddToCart
               inStock={product.inStock}
-              selectedAttributes={[...this.state.selectedAttributes]}
+              selectedAttributes={this.state.selectedAttributes}
               product={product}
             />
           </div>
