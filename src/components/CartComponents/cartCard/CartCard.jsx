@@ -86,17 +86,14 @@ export default class CartCard extends Component {
         {this.state.finished && (
           <div className="cart__card__container">
             <div className="cart__card__info">
-              <Link
-                to={`/product/${productData.id}`}
-                className="cart__card__info__name"
-              >
+              <div className="cart__card__info__name">
                 <p className="cart__card__info__name__brand">
                   {productData.brand}
                 </p>
                 <p className="cart__card__info__name__name">
                   {productData.name}
                 </p>
-              </Link>
+              </div>
               <div className="cart__card__info__price">
                 <p>
                   {productData.prices.map((el) =>
