@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import { CurrencyContext } from "../../../context/currencyData/CurrencyContext";
 
@@ -85,14 +86,17 @@ export default class CartCard extends Component {
         {this.state.finished && (
           <div className="cart__card__container">
             <div className="cart__card__info">
-              <div className="cart__card__info__name">
+              <Link
+                to={`/product/${productData.id}`}
+                className="cart__card__info__name"
+              >
                 <p className="cart__card__info__name__brand">
                   {productData.brand}
                 </p>
                 <p className="cart__card__info__name__name">
                   {productData.name}
                 </p>
-              </div>
+              </Link>
               <div className="cart__card__info__price">
                 <p>
                   {productData.prices.map((el) =>

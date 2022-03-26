@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import { CategoryContext } from "../../context/categoryData/CategoryContext";
+import history from "../../history";
 
 import { CartNav } from "../CartComponents";
 import { CurrencyNav } from "../CurrencyComponents";
@@ -10,67 +11,56 @@ import logo from "../../assets/logo.svg";
 
 import "./navbar.css";
 
-const query = `{
-  categories{
-    name
-  }
-}`;
-
 export default class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = { categories: [], finished: false };
+    this.state = { selectedCategory: "" };
   }
 
   static contextType = CategoryContext;
 
+  makeCategory(location) {
+    this.setState({
+      selectedCategory: location.pathname.slice(1, location.pathname.length),
+    });
+  }
+
   componentDidMount() {
-    const getCategories = async () => {
-      fetch("http://localhost:4000", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query: query,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          this.setState({
-            categories: data.data.categories,
-            finished: true,
-          });
-          this.context.setSelectedCategory(data.data.categories[0].name);
-        });
-    };
-    getCategories();
+    this.makeCategory(window.location);
+    this.unlisten = history.listen(({ location, action }) => {
+      if (action === "PUSH") {
+        this.makeCategory(location);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
   }
 
   render() {
-    let { selectedCategory, setSelectedCategory } = this.context;
+    let { selectedCategory } = this.state;
+    let { categories } = this.context;
 
     return (
       <div className="nav__container">
         <div className="nav__first__container">
           <ul className="nav__list">
-            {this.state.finished &&
-              this.state.categories.map((category, index) => (
-                <li className="nav__list-item" key={index}>
-                  <Link
-                    to={`/`}
-                    className={`nav__list__item-link ${
-                      category.name === selectedCategory && "selected"
-                    }`}
-                    onClick={() => setSelectedCategory(category.name)}
-                  >
-                    {category.name}
-                  </Link>
-                  {selectedCategory === category.name && (
-                    <div className="nav__list-item_greenBar" />
-                  )}
-                </li>
-              ))}
+            {categories.map((category, index) => (
+              <li className="nav__list-item" key={index}>
+                <Link
+                  to={`/${category.name}`}
+                  className={`nav__list__item-link ${
+                    category.name === selectedCategory && "selected"
+                  }`}
+                >
+                  {category.name}
+                </Link>
+                {selectedCategory === category.name && (
+                  <div className="nav__list-item_greenBar" />
+                )}
+              </li>
+            ))}
           </ul>
         </div>
 

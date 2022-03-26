@@ -74,8 +74,6 @@ export default class ProductPage extends Component {
     this.getData();
   }
 
-  compo;
-
   render() {
     return (
       <>

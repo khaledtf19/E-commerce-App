@@ -11,6 +11,7 @@ import CurrencyProvider from "./context/currencyData/CurrencyContext";
 import CategoryProvider from "./context/categoryData/CategoryContext";
 
 import "./App.css";
+import NotFound from "./pages/notFound/NotFound";
 
 export default class App extends Component {
   render() {
@@ -25,7 +26,8 @@ export default class App extends Component {
                 <CurrencyPopup />
                 <Layout>
                   <Routes>
-                    <Route path="/" element={<CategoryPage />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/:category" element={<CategoryPage />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/product/:id" element={<ProductPage />} />
                   </Routes>
