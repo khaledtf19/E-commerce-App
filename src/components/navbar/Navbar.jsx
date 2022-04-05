@@ -28,9 +28,7 @@ export default class Navbar extends Component {
   componentDidMount() {
     this.makeCategory(window.location);
     this.unlisten = history.listen(({ location, action }) => {
-      if (action === "PUSH") {
-        this.makeCategory(location);
-      }
+      this.makeCategory(location);
     });
   }
 
