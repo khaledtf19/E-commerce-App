@@ -1,20 +1,27 @@
 import React, { Component } from "react";
-import { CardsContainer } from "../../components/CardsComponents";
+import {
+  CardsContainer,
+  CategoryFilter,
+} from "../../components/CardsComponents";
 
 import { CategoryContext } from "../../context/categoryData/CategoryContext";
 import history from "../../history";
 
+import "./categoryPage.css";
+
 export default class CategoryPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { selectedCategory: "" };
+    this.state = { selectedCategory: "", search: "" };
   }
+  // search = this.props.location.search;
 
   static contextType = CategoryContext;
 
   makeCategory(location) {
     this.setState({
       selectedCategory: location.pathname.slice(1, location.pathname.length),
+      search: location.search,
     });
   }
 
@@ -22,7 +29,7 @@ export default class CategoryPage extends Component {
     this.makeCategory(window.location);
     this.unlisten = history.listen(({ location, action }) => {
       this.makeCategory(location);
-      console.log(action);
+      console.log(location);
     });
   }
 
@@ -31,8 +38,13 @@ export default class CategoryPage extends Component {
   }
 
   render() {
-    let { selectedCategory } = this.state;
+    let { selectedCategory, search } = this.state;
 
-    return <> {<CardsContainer selectedCategory={selectedCategory} />}</>;
+    return (
+      <div className="category__page">
+        <CategoryFilter />
+        {<CardsContainer selectedCategory={selectedCategory} search={search} />}
+      </div>
+    );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
-import ProductCard from "../productCard/ProductCard";
+import { ProductCard } from "../";
+import { FilterContext } from "../../../context/filterData/FilterContext";
 
 import "./cardsContainer.css";
 
@@ -13,6 +14,7 @@ export default class CardsContainer extends Component {
       loading: false,
     };
   }
+  static contextType = FilterContext;
 
   query = (selectedCategory) => `{
     category(input: {
@@ -59,6 +61,7 @@ export default class CardsContainer extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
+        this.context.setTempProducts(data.data.category.products);
         this.setState({
           products: data.data.category.products,
           finished: true,
@@ -70,6 +73,7 @@ export default class CardsContainer extends Component {
   componentDidMount() {
     this.getData();
   }
+
   componentDidUpdate(prevProps) {
     if (prevProps.selectedCategory !== this.props.selectedCategory) {
       this.getData();
@@ -80,7 +84,7 @@ export default class CardsContainer extends Component {
     const { selectedCategory } = this.props;
     return (
       <div className="category__container">
-        <div className="category__name__container">
+        <div className="category__info__container">
           <h1 className="category__name">{selectedCategory}</h1>
         </div>
         <div className="cards__container">
@@ -88,7 +92,7 @@ export default class CardsContainer extends Component {
             <h1>Loading...</h1>
           ) : (
             this.state.finished &&
-            this.state.products.map((product) => (
+            this.context.filteredProducts.map((product) => (
               <ProductCard product={product} key={product.id} />
             ))
           )}

@@ -12,6 +12,7 @@ import CategoryProvider from "./context/categoryData/CategoryContext";
 
 import "./App.css";
 import NotFound from "./pages/notFound/NotFound";
+import FilterProvider from "./context/filterData/FilterContext";
 
 export default class App extends Component {
   render() {
@@ -20,19 +21,21 @@ export default class App extends Component {
         <CategoryProvider>
           <CurrencyProvider>
             <CartProvider>
-              <Navbar />
-              <main>
-                <CartPopup />
-                <CurrencyPopup />
-                <Layout>
-                  <Routes>
-                    <Route path="*" element={<NotFound />} />
-                    <Route path="/:category" element={<CategoryPage />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/product/:id" element={<ProductPage />} />
-                  </Routes>
-                </Layout>
-              </main>
+              <FilterProvider>
+                <Navbar />
+                <main>
+                  <CartPopup />
+                  <CurrencyPopup />
+                  <Layout>
+                    <Routes>
+                      <Route path="*" element={<NotFound />} />
+                      <Route path="/:category" element={<CategoryPage />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/product/:id" element={<ProductPage />} />
+                    </Routes>
+                  </Layout>
+                </main>
+              </FilterProvider>
             </CartProvider>
           </CurrencyProvider>
         </CategoryProvider>
